@@ -7,7 +7,8 @@ package edu.uqu.cs;
 /*
 * Make sure to complete and submit your lab
 */
-import java.util.Scanner;
+
+
 
 public class Garage{
 
@@ -21,7 +22,7 @@ public class Garage{
      * private classType [] varName = new classType[size];
      *
      */
-
+           private  Car [] cars =new  Car [3];
     /************ Part 2 **************/
     /**
      * Decalre a static/class variable named countCars
@@ -31,6 +32,9 @@ public class Garage{
      * public dataType varName= value;
      *
      */
+    public static  int countCars = 0;
+
+
 
     /************ Part 3 **************/
     /**
@@ -45,6 +49,12 @@ public class Garage{
      *     }
      *}
      */
+          public Garage (){
+            for( int i=0; i<cars.length;i++){
+                cars[i] = new  Car();
+
+            }
+          }
 
     /************ Part 4 **************/
     /**
@@ -59,7 +69,45 @@ public class Garage{
      * Syntax:
      * public void methodName(String m)
      */
+           public void addCar(String model){
+            if (countCars==cars.length){
+                 System.out.println("garage is full ");
+    
 
+            } else{
+                boolean carExsists = false;
+                for(int i=0; i<countCars;i++){
+                    if(cars[i].getModel().equals(model)){
+                          System.out.println("car"+ model + " already exsist"); 
+                          carExsists=true;
+                          break;
+
+                    }       
+                }
+                 if(!carExsists){
+
+                     cars[countCars].setModel(model);
+                    cars[countCars].moveCarIn();
+                    countCars++;
+
+                 }
+
+                }
+                
+
+
+                
+
+               
+             
+
+            
+            
+
+            
+           }
+
+ 
 
     /************ Part 5 **************/
     /**
@@ -70,7 +118,27 @@ public class Garage{
      * Syntax:
      * public void methodName(String m)
      *
-     */
+     */     public void moveCarOut( String model){
+             boolean carExsists = false;
+                for(int i=0; i<countCars; i++){
+                   if(cars[i].getModel().equals(model)){
+                     cars[i].moveCarOut();
+                     carExsists = true;
+                     for(int j=0;j<countCars-1; j++){
+                        cars[j]=cars[j+1];
+                     }
+                     countCars--;
+                        break;
+
+
+                   }
+                
+
+                }
+                 if(!carExsists){
+                    System.out.println(" car"+ model+ " does not exisit in the garage");
+                 }
+     }
 
 
 
@@ -84,6 +152,24 @@ public class Garage{
      * public void methodName(String m)
      *
      */
+    public void moveIn(String model ){
+
+       boolean carExisit= false;
+       for (int i=0; i <countCars; i++){
+                if(cars[i].getModel().equals(model)){
+                       System.out.println("car"+ model+ " already exisit");
+                       carExisit = true;
+                       break;
+
+    
+
+                }
+       }
+       if(!carExisit){
+           addCar(model);
+
+       }
+    }
 
 
     /************ Part 7 **************/
@@ -95,7 +181,13 @@ public class Garage{
      * public void methodName(String m)
      *
      */
+       public void listCars(){
+        for(int i=0; i<countCars;i++){
+                System.out.println( "car" +(i+1)+": "+ cars[i].getModel());
 
+
+        }
+       }
 
 
 }
